@@ -1,0 +1,30 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+
+
+/*Barra de Probabilidades ------------------------------------------------------------------*/
+.barra{
+    width: 26em;
+display:flex;
+height: 49px;
+border: 2px solid black;
+color: blue;
+font-size: 20px;;
+text-align: center;
+border-radius: 20px;
+overflow: hidden;
+}
+.caja{
+    margin-top: 7px;
+    width: 10px;
+    height: 10px;
+}
+.txtoInfo{
+    width: 200px;
+    margin-left: 11px;
+}
+.info{
+    display: flex;
+}
