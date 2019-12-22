@@ -8,6 +8,9 @@ var DiasVenta=[20,30,40,30,10];
 var PrecioCompra=[5,7,9,11,17];
 var DiasCompra=[15,25,35,25,10];
 
+var Lista_De_Cantidad_comprar=[20,21,22,23,24,25];
+var Num_Corridas=100;
+var Transporte=1;
 /*var TotalDiasDemanda=SumaTotalArreglo(DiasDemanda);
 var ProbabilidadDem=ProbabilidadSuceso(DiasDemanda,TotalDiasDemanda);
 var ProbavilidadAcumulada= ProbabilidadAcumulada(ProbabilidadDem);
@@ -17,11 +20,11 @@ Demanda_Dias=[demandaInicial,DiasDemanda,ProbabilidadDem,ProbavilidadAcumulada];
 
 GraficaProbabilidad(ProbabilidadDem,'barra',DiasDemanda,'Informacion','para la cantidad de dias de ');
 */
-SacarProbabilidades(demandaInicial,DiasDemanda,'demanda','DEMANDA');
+var MatrisDemanda=SacarProbabilidades(demandaInicial,DiasDemanda,'demanda','DEMANDA');
 
-SacarProbabilidades(PrecioVenta,DiasVenta,'venta','PRECIO VENTA');
+var MatrisPrecioVenta=SacarProbabilidades(PrecioVenta,DiasVenta,'venta','PRECIO VENTA');
 
-var matris=SacarProbabilidades(PrecioCompra,DiasCompra,'compra','PRECIO COMPRA');
+var MatrisPrecioCompra=SacarProbabilidades(PrecioCompra,DiasCompra,'compra','PRECIO COMPRA');
 
 function SacarProbabilidades(DatoIniciales,nroDias,contenedor,titulo){
     
@@ -44,24 +47,25 @@ function SacarProbabilidades(DatoIniciales,nroDias,contenedor,titulo){
     //console.log(ProbavilidadAcumulada);
     //console.log(Demanda_Dias);
     
-    GraficaProbabilidad(ProbabilidadDem,contenedor+'barra',nroDias,contenedor+'Informacion','para la cantidad de dias de ');
+    GraficaProbabilidad(ProbabilidadDem,contenedor+'barra',DatoIniciales,contenedor+'Informacion','para la cantidad de dias de ');
     //Demanda_Dias=[DatoIniciales,DiasDemanda,ProbabilidadDem,ProbavilidadAcumulada];
     var Matriz=[DatoIniciales,DiasDemanda,ProbabilidadDem,ProbavilidadAcumulada];
     //console.log(Matriz);
     return [DatoIniciales,nroDias,ProbabilidadDem,ProbavilidadAcumulada];
 }
-MostrarMatriz('matris',matris);
+
+MostrarMatriz('matris',MatrisDemanda);
 function MostrarMatriz(idElemento, Matriz){
     var ubicacion=document.getElementById(idElemento);
-    for (let i = 0; i < Matriz.length; i++) {
+   // for (let i = 0; i < Matriz.length; i++) {
         for (let j = 0; j < Matriz[1].length; j++) {
-            console.log(Matriz[i][j]);
+           // console.log(Matriz[1][j]);
             var div=document.createElement('div');  
-            var datos=document.createTextNode(Matriz[i][j]);       
-            div.appendChild(datos)
+            var datos=document.createTextNode(Matriz[0][j]);       
+            div.appendChild(datos);
             ubicacion.appendChild(div); 
         }
-    }
+    //}
 }
 
 
@@ -111,7 +115,6 @@ function GraficaProbabilidad(ArregloProb,idElemento,ArregloInfo,UbicacionInforma
 }
 
 /* Colores aleatorios */
-
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -119,9 +122,8 @@ function getRandomColor() {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
+}
  
-
 /* Saca el total del arreglo------------------------------------------------------------------ */
 function SumaTotalArreglo(arreglo){
     var acumulacion=0;
@@ -149,4 +151,131 @@ function ProbabilidadAcumulada(ArregloProbabilidad){
             
         }
 return Resultado;
+}
+
+/*-----------------------------------Crear Procesador de Datos------------------------------------------------------ */
+console.log(BuscarValorProximo(0.80,MatrisDemanda));
+function BuscarValorProximo(aleatorio,Matriz){
+    //var aleatorio=Math.random();
+    var lista=new Array();
+    for (let j = 0; j < Matriz[1].length; j++) {
+        var nuevo = Math.abs(aleatorio-Matriz[3][j]);
+        lista.push(nuevo);
+    }
+        var ValMin=Math.min.apply(null,lista);
+        var indiceMinimo=lista.indexOf(ValMin);
+        var minimo= Math.abs(aleatorio-0);
+            if (minimo<ValMin){
+                 return Matriz[0][0]-1;
+                     }
+            else{
+                    return Matriz[0][indiceMinimo];
+                }
+}
+//listaAleatorio(100,MatrisPrecioVenta,'PrecioCompra');
+ function listaAleatorio(NroSucesos,Matriz,NombreLista){
+     var ListaRandom=new Array();
+   
+     // var nombre=NombreLista;
+     for (let i = 1; i <= NroSucesos; i++) {
+        
+   // ListaRandom.push({lista:NombreLista,dato:BuscarValorProximo(Math.random(),Matriz)});
+    ListaRandom.push(BuscarValorProximo(Math.random(),Matriz));         
+        }
+      // console.log(ListaRandom[50].lista);
+        return ListaRandom;
+    }
+/*********MATRIZ FINAL DE VARIABLES ************************************* */
+  
+
+//console.log(Matriz_Final_de_Variables(Num_Corridas,Transporte,Lista_De_Cantidad_comprar));
+function Matriz_Final_de_Variables(NumeroCorridas,CostoMovilidad,ListaCantidadCompra){
+  
+        var ArregloFinal=new Array();
+        
+for (let i = 0; i < ListaCantidadCompra.length; i++) {
+    ArregloFinal.push({Cntidad_A_Comprar:ListaCantidadCompra[i],dato:Lista_Exceso_Beneficio(ListaCantidadCompra[i],NumeroCorridas)});
+    
+}
+
+
+  /*Matriz Exceso BEeneficio-----------------dependiendo de la cantidad de compra */    
+function Lista_Exceso_Beneficio(CantidadCompra,NumeroCorridas){
+        var Exceso_Beneficio= new Array();
+        var exceso=new Array();
+        var ganancia=new Array(); 
+
+var demanda =MatrisVariableAleatoria(NumeroCorridas,CostoMovilidad)[0].demanda;
+var CostoCompra =MatrisVariableAleatoria(NumeroCorridas,CostoMovilidad)[0].CostoCompra;
+var PrecioVenta =MatrisVariableAleatoria(NumeroCorridas,CostoMovilidad)[0].PrecioVenta;
+       
+                 for (let i = 0; i < NumeroCorridas; i++) {
+                        var CostExceso=Coste_Exceso(CantidadCompra,demanda[i],CostoCompra[i]);
+                        exceso.push(CostExceso);
+                        ganancia.push(beneficio(CantidadCompra,demanda[i],PrecioVenta[i],CostoCompra[i],CostExceso));     
+                     }
+        return Exceso_Beneficio={CostoExceso:exceso,Beneficio:ganancia};
+               
+       }
+
+       /*Saca el costo exceso en abse a compra y demanda---------------------------- */
+    
+function Coste_Exceso(CantidadAComprar,demanda,costeCompra){
+                if(CantidadAComprar>demanda){
+                    return (CantidadAComprar-demanda)*costeCompra;
+                }
+                else{
+                  return 0;
+                }
+
+        }
+
+function beneficio(CantidadAComprar,demanda,precioVenta,costeCompra,costeExceso){
+            if(CantidadAComprar<=demanda){
+                return (CantidadAComprar*precioVenta)-(CantidadAComprar*costeCompra);
+            }
+            else{
+              return (demanda*precioVenta)-(demanda*costeCompra)-costeExceso;
+            }
+
+        }
+        //console.log(beneficio(18,21,10,9,0));
+     return MatrisVariableAleatoria(NumeroCorridas,CostoMovilidad).concat(ArregloFinal);
+    
+    }
+//MatrisVariableAleatoria(100,1);
+/********************Saca la Matriz de variables iniciales Variables iniciales aleatorias**************************** */
+ function MatrisVariableAleatoria(NroCorridas,CosteTransporte){
+   var Precio_Compra= listaAleatorio(NroCorridas,MatrisPrecioCompra,'PrecioCompra');
+   var Precio_Venta=listaAleatorio(NroCorridas,MatrisPrecioVenta,'PrecioCompra');
+   var Demanda=listaAleatorio(NroCorridas,MatrisDemanda,'PrecioCompra'); 
+    var Coste_Compra=new Array();
+    for (let i = 0; i < Precio_Compra.length; i++) {
+        Coste_Compra.push(Precio_Compra[i]+CosteTransporte);
+        
+    }
+   var ResultadoFinal=new Array();
+   ResultadoFinal.push({demanda:Demanda,PrecioVenta:Precio_Venta,PrecioCompra:Precio_Compra,CostoCompra:Coste_Compra});
+
+   return ResultadoFinal;
+
+
+ }
+console.log(Matriz_Final_de_Variables(Num_Corridas,Transporte,Lista_De_Cantidad_comprar));
+function CrearNumSucesos(){        
+  //  console.log('ingreso a la funcion');  
+    var arreglo =Matriz_Final_de_Variables(Num_Corridas,Transporte,Lista_De_Cantidad_comprar);
+    $.ajax({
+        type:'post',
+       // dataType: 'json',
+        data: {'arreglo': JSON.stringify(arreglo)},
+        url: 'enviarDatos.php',
+       success: function(datos) {
+            console.log(datos);    
+            
+                 },
+         error: function() { alert("Error leyendo fichero jsonP"); }
+    });
+
+
 }

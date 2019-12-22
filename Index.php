@@ -13,8 +13,8 @@
 <div id="venta"></div>
 <div id="compra"></div>
 
-<!--    <button onclick="VerDemanda()"> Ver Demanda </button>
-<h2>DEMANDA</h2>
+   <button onclick="CrearNumSucesos()"> Calcular Matriz Para Graficar </button>
+<!--<h2>DEMANDA</h2>
 
 <div class="barra" id="barra"></div>
 <div id="Informacion"></div>
@@ -24,4 +24,5 @@
     
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="Demanda.js"></script>
