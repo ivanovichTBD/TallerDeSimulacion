@@ -1,16 +1,28 @@
+function iniciarSimulacion(){
+function LeerDator(nombre){
+    //'CantidadV'
+    var Lista=new Array();
+    for (let i = 0; i < document.getElementsByClassName(nombre).length; i++) {
+        Lista.push(parseInt(document.getElementsByClassName(nombre)[i].value));
+        
+    }
+    return Lista;
+
+}
+console.log(LeerDator('CantidadV'));
 /* demandaa------------------------------------------------------------------------ */
-var demandaInicial=[20,21,22,23,24,25];
-var DiasDemanda=[10,20,30,30,20,10];
+var demandaInicial=LeerDator('CantidadV');
+var DiasDemanda=LeerDator('diasV');
 
-var PrecioVenta=[10,12,14,16,18];
-var DiasVenta=[20,30,40,30,10];
+var PrecioVenta=LeerDator('PrecioV');
+var DiasVenta=LeerDator('diasPrecioV');
 
-var PrecioCompra=[5,7,9,11,17];
-var DiasCompra=[15,25,35,25,10];
+var PrecioCompra=LeerDator('compra');
+var DiasCompra=LeerDator('diasCompra');
 
-var Lista_De_Cantidad_comprar=[20,21,22,23,24,25];
-var Num_Corridas=100;
-var Transporte=1;
+var Lista_De_Cantidad_comprar=LeerDator('Simudias');
+var Num_Corridas=parseInt(document.getElementById('Num_corridas'));
+var Transporte=parseInt(document.getElementById('transporte'));
 /*var TotalDiasDemanda=SumaTotalArreglo(DiasDemanda);
 var ProbabilidadDem=ProbabilidadSuceso(DiasDemanda,TotalDiasDemanda);
 var ProbavilidadAcumulada= ProbabilidadAcumulada(ProbabilidadDem);
@@ -194,7 +206,7 @@ function Matriz_Final_de_Variables(NumeroCorridas,CostoMovilidad,ListaCantidadCo
         var ArregloFinal=new Array();
         
 for (let i = 0; i < ListaCantidadCompra.length; i++) {
-    ArregloFinal.push({Cntidad_A_Comprar:ListaCantidadCompra[i],dato:Lista_Exceso_Beneficio(ListaCantidadCompra[i],NumeroCorridas)});
+    ArregloFinal.push({Cantidad_A_Comprar:ListaCantidadCompra[i],dato:Lista_Exceso_Beneficio(ListaCantidadCompra[i],NumeroCorridas)});
     
 }
 
@@ -272,10 +284,11 @@ function CrearNumSucesos(){
         url: 'enviarDatos.php',
        success: function(datos) {
             console.log(datos);    
-            
+            location.href = 'Graficas.php';
                  },
          error: function() { alert("Error leyendo fichero jsonP"); }
     });
 
 
+}
 }
