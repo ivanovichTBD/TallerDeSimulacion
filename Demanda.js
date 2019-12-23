@@ -9,7 +9,7 @@ function LeerDator(nombre){
     return Lista;
 
 }
-console.log(LeerDator('CantidadV'));
+//console.log(LeerDator('CantidadV'));
 /* demandaa------------------------------------------------------------------------ */
 var demandaInicial=LeerDator('CantidadV');
 var DiasDemanda=LeerDator('diasV');
@@ -21,8 +21,10 @@ var PrecioCompra=LeerDator('compra');
 var DiasCompra=LeerDator('diasCompra');
 
 var Lista_De_Cantidad_comprar=LeerDator('Simudias');
-var Num_Corridas=parseInt(document.getElementById('Num_corridas'));
-var Transporte=parseInt(document.getElementById('transporte'));
+var Num_Corridas=document.getElementById('Num_corridas').value;
+var Transporte=document.getElementById('transporte').value;
+
+//console.log(Transporte);
 /*var TotalDiasDemanda=SumaTotalArreglo(DiasDemanda);
 var ProbabilidadDem=ProbabilidadSuceso(DiasDemanda,TotalDiasDemanda);
 var ProbavilidadAcumulada= ProbabilidadAcumulada(ProbabilidadDem);
@@ -166,7 +168,7 @@ return Resultado;
 }
 
 /*-----------------------------------Crear Procesador de Datos------------------------------------------------------ */
-console.log(BuscarValorProximo(0.80,MatrisDemanda));
+//console.log(BuscarValorProximo(0.80,MatrisDemanda));
 function BuscarValorProximo(aleatorio,Matriz){
     //var aleatorio=Math.random();
     var lista=new Array();
